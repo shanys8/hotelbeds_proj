@@ -66,14 +66,14 @@ class HotelbedsController < ActionController::Base
                                                                type: :adult,
                                                                name: @first_name,
                                                                last_name: @last_name,
-                                                               age: "43"
+                                                               age: "26"
                                                            },
                                                            services: @basket_response.purchase.services.map { |service|
                                                            {
                                                                id: service.id,
                                                                type: service.type,
                                                                customers: [
-                                                                   { id: "1", type: :adult, name: "David", last_name: "Smith", age: "43" },
+                                                                   { id: "1", type: :adult, name: @first_name, last_name: @last_name, age: "26" },
                                                                    { id: "2", type: :adult, name: "Jane", last_name: "Smith", age: "40" }
                                                                ]
                                                            }
@@ -87,9 +87,31 @@ class HotelbedsController < ActionController::Base
 
     @checkout_response = @checkout_operation.response
 
+    @reference = @checkout_response.purchase.reference
+
+    @cancel_operation = @client.cancel_purchase({PurchaseReference: {
+        :FileNumber => @reference.file_number,
+        :IncomingOffice => @reference.incoming_office_code
+        }
+    })
+
+
+    if @cancel_operation.errors.any?
+      raise StandardError, @cancel_operation.errors.full_messages.join("\n")
+    end
+
+    @cancel_response = @cancel_operation.response
+
+
     render :json => {:hotel => hotel,
                      :basket_response => @basket_response,
-                     :checkout_response => @checkout_response}
+                     :purchase_basket => @basket_response.purchase,
+                     :checkout_response => @checkout_response,
+                     :purchase_confirm=> @checkout_response.purchase,
+                     :cancel_response=> @cancel_response,
+                     # :purchase_cancel=> @cancel_response.purchase,
+
+    }
 
     # #flush purchase
     # @flush_operation = @client.flush_purchase({
