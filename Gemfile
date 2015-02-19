@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.1'
+gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -26,7 +26,13 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
-gem "hotel_beds", "~> 1.0.7"
+# gem "hotel_beds", '~> 800'
+
+gem 'hotel_beds', '~> 2.0.7'#, :git => 'https://github.com/netloner/hotel_beds.git'
+
+gem "savon", "~> 2.5.1"
+gem "virtus", "~> 1.0.2"
+gem "nokogiri", "~> 1.6.6.2"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

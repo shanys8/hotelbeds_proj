@@ -87,12 +87,11 @@ class HotelbedsController < ActionController::Base
 
     @checkout_response = @checkout_operation.response
 
-    @reference = @checkout_response.purchase.reference
-
-    @cancel_operation = @client.cancel_purchase({PurchaseReference: {
-        :FileNumber => @reference.file_number,
-        :IncomingOffice => @reference.incoming_office_code
-        }
+    @cancel_operation = @client.cancel_purchase({purchase_reference: {
+        file_number: @checkout_response.purchase.reference.file_number,
+        incoming_office: @checkout_response.purchase.reference.incoming_office_code
+        },
+        view_or_cancel: "C"
     })
 
 
@@ -109,7 +108,7 @@ class HotelbedsController < ActionController::Base
                      :checkout_response => @checkout_response,
                      :purchase_confirm=> @checkout_response.purchase,
                      :cancel_response=> @cancel_response,
-                     # :purchase_cancel=> @cancel_response.purchase,
+                     :purchase_cancel=> @cancel_response.purchase,
 
     }
 
