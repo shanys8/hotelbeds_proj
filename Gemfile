@@ -26,8 +26,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
-# gem "hotel_beds", '~> 800'
-
 gem 'hotel_beds', '~> 2.0.7'#, :git => 'https://github.com/netloner/hotel_beds.git'
 
 gem "savon", "~> 2.5.1"
